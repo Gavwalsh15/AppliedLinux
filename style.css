@@ -1,0 +1,87 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f8f9fa;
+}
+
+h1 {
+  color: #007bff;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+h2 {
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 15px;
+  color: #555;
+  text-align: center;
+}
+
+textarea {
+  width: 90%;
+  height: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+  resize: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+textarea:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  margin: 10px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.container {
+  max-width: 90%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #fff;
+  margin: 20px;
+}
+
+.server-usage {
+  position: absolute;
+  top: 10px; /* Adjust the top positioning as needed */
+  right: 10px; /* Adjust the right positioning as needed */
+  text-align: right;
+}
