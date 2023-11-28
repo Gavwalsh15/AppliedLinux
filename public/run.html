@@ -1,69 +1,84 @@
 <!DOCTYPE html>
+
 <html>
-	 <head>
-	 <title>Linux Mini Project</title>
-	  <link rel="stylesheet" href="/stylesheets/style.css">
-	  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-	</head> 
-  <body>
 
-    <h2>Linux Mini-Project</h2>
+<head>
+  <title>Linux Mini Project</title>
 
-    <p>Type or paste script to run:</p>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
 
-    <textarea  style="width: 90%; height: 200px;" type="text" name="scriptInput" id="scriptInput"></textarea>
-    <br>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+</head>
 
-    <button onclick="sendToServer()" style="border: 1px solid black; margin: 10px; width: 150px; height: 40px;">Click to send to server</button>
+<body>
+  <div class="container">
+    <div class="server-usage">
+      <h2>Server Usage:</h2>
+      <h3 id="date">123</h3>
+      <h3 id="Cpu"></h3>
+      <h3 id="Mem"></h3>
+    </div>
+    <div>
+      <h2>Linux Mini-Project</h2>
+      <p>Type or paste script to run:</p>
+      <textarea name="scriptInput" id="scriptInput"></textarea>
+      <button onclick="sendToServer()">Click to send to server</button>
+      <textarea name="scriptOutput" id="scriptOutput" readonly></textarea>
+      <button id="clearOutputButton" onclick="clearOutput()">Clear Output</button>
+    </div>
+  </div>
 
-    <textarea style="border: 1px solid black; width: 90%; height: 200px;" name="scriptOutput" id='scriptOutput'></textarea>
 
+  <script>
+    window.addEventListener("load", (event) => {
+      setInterval(runTsk, 1000);
+    });
 
-    <button onclick="runTsk()" style="border: 1px solid black; margin: 10px; width: 150px; height: 40px;">Click to get usage</button>
-    <h1 name="Cpu" id='Cpu'></h1>
-    <h1 name="Mem" id='Mem'></h1>
-    <script>
-	    window.addEventListener('load', (event) => {
-	    setInterval(runTsk, 1000);
-	});
+    function clearOutput() {
+      document.getElementById("scriptOutput").innerHTML = "";
+    }
 
-    
-    
-      async function sendToServer(){
+    async function sendToServer() {
       console.log(document.getElementById("scriptInput").value);
-      
-          let response = await fetch('http://localhost:3000/runScript', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                scriptInput: document.getElementById("scriptInput").value,
-                scriptOutput: "",
-                moreStuff: ""
-            })
-        });
-        response = await response.json();
-        document.getElementById("scriptOutput").innerHTML = response.scriptOutput;
-      }
-      
-      async function runTsk(){
-          let response = await fetch('http://localhost:3000/runTsk', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                tskOutput: "",
-                moreStuff: ""
-            })
-        });
-        response = await response.json();
-        let text = response.scriptOutput;
-        let newStr = text.split("%");
-        document.getElementById("Cpu").innerHTML = newStr[0] + "%";
-        document.getElementById("Mem").innerHTML = newStr[1];
-      }
-    </script>
-  </body>
+
+      let response = await fetch("http://localhost:3000/runScript", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          scriptInput: document.getElementById("scriptInput").value,
+          scriptOutput: "",
+          moreStuff: "",
+        }),
+      });
+      response = await response.json();
+      document.getElementById("scriptOutput").innerHTML =
+        response.scriptOutput;
+    }
+
+    async function runTsk() {
+      let response = await fetch("http://localhost:3000/runTsk", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tskOutput: "",
+          moreStuff: "",
+        }),
+      });
+      let responseData = await response.json();
+      // Extract properties directly from the response
+      let date = responseData.date;
+      let cpuInfo = responseData.cpuInfo;
+      let memoryInfo = responseData.memoryInfo;
+      document.getElementById("date").innerHTML = date;
+      document.getElementById("Cpu").innerHTML = cpuInfo;
+      document.getElementById("Mem").innerHTML = memoryInfo;
+    }
+  </script>
+</body>
+
 </html>
